@@ -1,4 +1,5 @@
 ﻿using IniParser;
+using System.ComponentModel;
 using System.Diagnostics;
 
 Console.Write("Enter the path to your FFXIV installation: ");
@@ -141,8 +142,16 @@ if (File.Exists(uninstallerPath))
             UseShellExecute = true
         }
     };
-    process.Start();
-    process.WaitForExit();
+    try
+    {
+        process.Start();
+        process.WaitForExit();
+    }
+    catch (Win32Exception)
+    {
+        Console.WriteLine("Elevation / execution of GShade uninstaller failed. Uninstall GShade manually, then hit Enter to continue.");
+        Console.ReadLine();
+    }
 }
 else
 {
