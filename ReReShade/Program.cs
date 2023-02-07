@@ -187,7 +187,8 @@ Console.ReadLine();
 
 //hook ReShade up to our copied shaders folder
 var reshadeIniData = iniParser.ReadFile(Path.Combine(installPath, "ReShade.ini"));
-reshadeIniData["GENERAL"]["EffectSearchPaths"] = reshadeIniData["GENERAL"]["EffectSearchPaths"] + ',' + Path.Combine(newShadersFolder, "Shaders") + ',' + Path.Combine(newShadersFolder, "ComputeShaders");
+reshadeIniData["GENERAL"]["EffectSearchPaths"] = reshadeIniData["GENERAL"]["EffectSearchPaths"] + ',' + Path.Combine(reinstallFolder, "Shaders") + ',' + Path.Combine(reinstallFolder, "ComputeShaders");
+reshadeIniData["GENERAL"]["TextureSearchPaths"] = reshadeIniData["GENERAL"]["TextureSearchPaths"] + ',' + Path.Combine(reinstallFolder, "Textures");
 iniParser.WriteFile(Path.Combine(installPath, "ReShade.ini"), reshadeIniData);
 
 //done!
