@@ -1,4 +1,5 @@
 ﻿using IniParser;
+using ReReShade;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -29,32 +30,32 @@ else if (Directory.Exists(installPath))
 }
 else
 {
-    Console.WriteLine("Entered path does not exist.");
+    Utils.WriteErrorMessageAndPause("Entered path does not exist.");
     return;
 }
 
 //validate that the things we expect to see in our path are there
 if(installPath == null)
 {
-    Console.WriteLine("Got back a null install path after trying to locate FFXIV. Probably my bad.");
+    Utils.WriteErrorMessageAndPause("Got back a null install path after trying to locate FFXIV. Probably my bad.");
     return;
 }
 
 if (!File.Exists(Path.Combine(installPath, "ffxiv_dx11.exe")))
 {
-    Console.WriteLine("Unable to locate ffxiv_dx11.exe. Please ensure the path entered was correct.");
+    Utils.WriteErrorMessageAndPause("Unable to locate ffxiv_dx11.exe. Please ensure the path entered was correct.");
     return;
 }
 
 if(!File.Exists(Path.Combine(installPath, "GShade.ini")))
 {
-    Console.WriteLine("Unable to locate GShade ini. Please ensure it is actually installed on the selected FFXIV instance.");
+    Utils.WriteErrorMessageAndPause("Unable to locate GShade ini. Please ensure it is actually installed on the selected FFXIV instance.");
     return;
 }
 
 if(Directory.Exists(Path.Combine(installPath, "gshade-shaders")))
 {
-    Console.WriteLine("The 'gshade-shaders' folder already exists in your FFXIV directory. Please move or get rid of it before running this installer.");
+    Utils.WriteErrorMessageAndPause("The 'gshade-shaders' folder already exists in your FFXIV directory. Please move or get rid of it before running this installer.");
     return;
 }
 
@@ -83,7 +84,7 @@ foreach(var path in GShadeEffectSearchPaths)
 }
 if(GShadeShadersPath == null || GShadeComputeShadersPath == null)
 {
-    Console.WriteLine("Unable to read GShade shaders location from INI. They may have changed the format or some other issue may have occurred.");
+    Utils.WriteErrorMessageAndPause("Unable to read GShade shaders location from INI. They may have changed the format or some other issue may have occurred.");
     return;
 }
 var GShadeTextureSearchPathsString = data["GENERAL"]["TextureSearchPaths"];
@@ -102,7 +103,7 @@ foreach (var path in GShadeTextureSearchPaths)
 }
 if (GShadeTexturesPath == null)
 {
-    Console.WriteLine("Unable to read GShade textures location from INI. They may have changed the format or some other issue may have occurred.");
+    Utils.WriteErrorMessageAndPause("Unable to read GShade textures location from INI. They may have changed the format or some other issue may have occurred.");
     return;
 }
 
